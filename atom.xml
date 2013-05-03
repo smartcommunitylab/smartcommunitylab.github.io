@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
+  <title><![CDATA[Smart Campus]]></title>
   <link href="http://smartcampuslab.github.io/atom.xml" rel="self"/>
   <link href="http://smartcampuslab.github.io/"/>
-  <updated>2013-05-03T16:35:26+02:00</updated>
+  <updated>2013-05-03T16:39:34+02:00</updated>
   <id>http://smartcampuslab.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Smart Campus]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
