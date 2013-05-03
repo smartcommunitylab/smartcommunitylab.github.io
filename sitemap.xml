@@ -1,12 +1,16 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
+        <loc>http://smartcampuslab.github.io/approach/</loc>
+        <lastmod>2013-05-03T16:43:46+02:00</lastmod>
+    </url>
+    <url>
         <loc>http://smartcampuslab.github.io/robots.txt</loc>
         <lastmod>2013-05-03T16:35:21+02:00</lastmod>
     </url>
     <url>
         <loc>http://smartcampuslab.github.io/</loc>
-        <lastmod>2013-05-03T16:35:21+02:00</lastmod>
+        <lastmod>2013-05-03T16:41:45+02:00</lastmod>
     </url>
     <url>
         <loc>http://smartcampuslab.github.io/blog/archives/</loc>
