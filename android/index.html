@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>android - Smart Campus</title>
+  <title>Android How To Documentation - Smart Campus</title>
   <meta name="author" content="Smart Campus">
 
   
-  <meta name="description" content=" Android May 7th, 2013 ">
+  <meta name="description" content="Android How to Documentation This document aims at describing the main elements necessary for development of a new SmartCampus Android app and its &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,24 +79,100 @@
   
   <header>
     <div class="jumbotron">
-      Android
+      Android How to Documentation
     </div>
-    <p class="meta">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-07T14:31:00+02:00" pubdate data-updated="true">May 7<span>th</span>, 2013</time></p>
+    
   </header>
   
-  
+  <p>This document aims at describing the main elements necessary for development of a new SmartCampus Android app and its integration with the existing apps and app container. Starting from the overall architecture, it explains the mechanisms for the authentication, interactions with remote services, as well as the support libraries for data storage/synchronization and for the common tasks.</p>
+
+<h3>Architecture</h3>
+
+<p>The SmartCampus Android applications are not totally independent. They rely upon presence of the “container” application that:</p>
+
+<ul>
+<li>provides the dashboard, from which one can access the apps;</li>
+<li>allows for managing the application updates;</li>
+<li>provides the SmartCampus user authentication that is essential for accessing the SmartCampus platform and the Web services;</li>
+</ul>
+
+
+<p>Note that in order to restrict the access only to the apps that make part of the SmartCampus apps ecosystem and to protect the sensitive resources (e.g., use credentials), the container poses some restrictions on the app declaration, deployment, and execution. Specifically, the applications should have the same sharedUserId and be signed with the same certificate. Furthermore, some of the exported elements (activities and services) are additionally protected with the corresponding “signature”-protected permissions.</p>
+
+<p>Development note: in these settings the applications developed and tested locally may be in conflict with the “official” apps already installed. For this reason, the old apps should be uninstalled and installed from the development environment with the same debug certificate.</p>
+
+<p>You can find <a href="/architecture/SmartCampus_platform_architecture.pdf" title="">here</a> a document describing in detail the architecture of the SmartCampus platform.</p>
+
+<h3>Application Configuration</h3>
+
+<p>A SmartCampus application should adhere to the following configuration constraints and requirements:</p>
+
+<ul>
+<li>define the following shared user id and the label in AndroidManifest.xml:</li>
+</ul>
+
+
+<pre style="font-size: 18px">
+    android:sharedUserId="eu.trentorise.smartcampus.shared"
+    android:sharedUserLabel="SmartCampus"
+</pre>
+
+
+<p></p>
+
+<ul>
+<li><p>declare references to the corresponding libraries in the project configuration. For example, for Eclipse IDE the libraries are declared in Project Properties/Android section. The dependencies may include, in particular:</p>
+
+<ul>
+<li>authentication support library (android.security.client)</li>
+<li>storage support (android.storage)</li>
+<li>common utility library (smartcampus.android.common)</li>
+<li>communication protocol support library (protocol-carrier)</li>
+</ul>
+
+
+<p><img src="/android/eclipse.png" title="Eclipse" alt="screen" /></p>
+
+<p>Development note: in order to make the library available to the project it is necessary to add them to the Eclipse workspace as library projects. The library sources are available at https://github.com/smartcampuslab</p></li>
+<li><p>Define the target Android SDK version constraints in AndroidManifest.xml. The minimal library should be:</p></li>
+</ul>
+
+
+<pre style="font-size: 18px">
+    <uses-sdk android:minSdkVersion="8" ... />
+</pre>
+
+
+<h3>Authentication</h3>
+
+<p>The access to the remote SmartCampus services requires the requests to be accompanied with the user authentication token. The token is emitted, renewed, and invalidated via the Acess Control service. The actual authentication is delegated to the external identity managers so that the user credentials are not available to the apps. Currently, the authentication relies on the Shibboleth protocol.</p>
+
+<p>On the client side, the authentication and token management is performed using the android.security.client library. The library is used to acquire, store, and retrieve the user access tokens. The library uses Android Account API, which natively handles creation and update of the accounts and access tokens.</p>
+
+<p>To acquire the authentication token to use when calling remote service, the following steps are necessary:</p>
+
+<ol>
+<li><h4>get the reference to the SCAccessProvider:</h4>
+
+<p> SCAccessProvider accessProvider = new AMSCAccessProvider();</p></li>
+<li><h4>Acquire the token using one of the methods exposed by the access provider:</h4>
+
+<ul>
+<li><p>getAuthToken(Activity activity, String authority): retrieve access token from the running activity. If the token is stored locally, it is returned, otherwise a dedicated Authentication activity starts for result. The
+calling activity should implement the Activity.onActivityResult method to process the obtained token. The authority attributes defines the required authentication authority. If not specified, the user can login with any authority.</p></li>
+<li><p>getAuthToken(Context ctx, String authority, IntentSender intentSender): Retrieve the authentication token from the an arbitrary context. If the token is stored locally, it is returned, otherwise a notification is added to the notification bar. If the user accesses the notification, the Authentication Activity starts and publishes the corresponding authentication result broadcast if successful. In case of implementation based on AccountManager infrastructure (eu.trentorise.smartcampus.ac.authenticator.AMSCAccessProvider), the broadcast with action AccountManager.LOGIN_ACCOUNTS_CHANGED_ACTION is propagated. In case of implementation based on local storage(eu.trentorise.smartcampus.ac.embedded. EmbeddedSCAccessProvider), a broadcast with action eu.trentorise.smartcampus.account.AUTHTOKEN_CHANGED is sent.</p></li>
+<li><p>getAuthToken(Context ctx, String authority): Retrieve the authentication token from the an arbitrary context. If the token is stored locally, it is returned, otherwise the Authentication Activity starts, which, upon successful completion sends the specified intent.</p></li>
+<li><p>readToken(Context ctx, String authority): Read token from the local cache without additional requests if the token is missing.</p></li>
+</ul>
+</li>
+<li><h4>If the token is requested from an activity, implement the Activity.onActivityResult method to process the obtained token.</h4></li>
+<li><h4>Declare the necessary permissions in AndroidManifest.xml:</h4>
+
+<p> <pre style="font-size: 18px">
+ <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+ </pre></p></li>
+</ol>
+
 
 </article>
 
