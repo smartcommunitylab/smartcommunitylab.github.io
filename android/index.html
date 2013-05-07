@@ -86,7 +86,7 @@
   
   <p>This document aims at describing the main elements necessary for development of a new SmartCampus Android app and its integration with the existing apps and app container. Starting from the overall architecture, it explains the mechanisms for the authentication, interactions with remote services, as well as the support libraries for data storage/synchronization and for the common tasks.</p>
 
-<h3>Architecture</h3>
+<h2>Architecture</h2>
 
 <p>The SmartCampus Android applications are not totally independent. They rely upon presence of the “container” application that:</p>
 
@@ -103,7 +103,7 @@
 
 <p>You can find <a href="/architecture/SmartCampus_platform_architecture.pdf" title="">here</a> a document describing in detail the architecture of the SmartCampus platform.</p>
 
-<h3>Application Configuration</h3>
+<h2>Application Configuration</h2>
 
 <p>A SmartCampus application should adhere to the following configuration constraints and requirements:</p>
 
@@ -143,7 +143,7 @@
 </pre>
 
 
-<h3>Authentication</h3>
+<h2>Authentication</h2>
 
 <p>The access to the remote SmartCampus services requires the requests to be accompanied with the user authentication token. The token is emitted, renewed, and invalidated via the Acess Control service. The actual authentication is delegated to the external identity managers so that the user credentials are not available to the apps. Currently, the authentication relies on the Shibboleth protocol.</p>
 
@@ -166,13 +166,78 @@ calling activity should implement the Activity.onActivityResult method to proces
 </ul>
 </li>
 <li><h4>If the token is requested from an activity, implement the Activity.onActivityResult method to process the obtained token.</h4></li>
-<li><h4>Declare the necessary permissions in AndroidManifest.xml:</h4>
-
-<p> <pre style="font-size: 18px">
- <uses-permission android:name="android.permission.GET_ACCOUNTS" />
- </pre></p></li>
+<li><h4>Declare the necessary permissions in AndroidManifest.xml:</h4></li>
 </ol>
 
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;uses-permission android:name="android.permission.GET_ACCOUNTS"/&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Data Storage</h2>
+
+<p>The android.storage library provides an abstraction layer for Android to perform principal data management operations given the Java Beans object model. The main case studies covered by the library refer to</p>
+
+<ul>
+<li>store the application data objects locally in database;</li>
+<li>store the application data remotely on the server;</li>
+<li>support continuous incremental data synchronization with remote services.</li>
+</ul>
+
+
+<p>The abstraction relies upon CRUD (create/read/update/delete) operations, providing the necessary extensions for each of the case studies. In this way, the switch from, e.g., remote storage to the local one is simplified as the object model and the core interfaces are equal.</p>
+
+<h3>Remote Storage</h3>
+
+<p>To use the library for the remote storage, the following steps are necessary:</p>
+
+<ol>
+<li><p>Define the data model of the objects. The required data model has to be defined as Java Beans that inherit from eu.trentorise.smartcampus.storage.BasicObject. Note that the the client-side java classes should have the same signature as their remote counterparts used to populate the REST/JSON objects. This is required for the correct data transformation on the client side.</p></li>
+<li><p>Instantiate the eu.trentorise.smartcampus.storage.remote.RemoteStorage class passing the Context, appToken, authToken, host (remote host and port), and service (name of the remote API application prefix).</p></li>
+<li><p>Call the corresponding method of the storage class. See the javadoc for the eu.trentorise.smartcampus.storage.remote.IRemoteStorage interface for details.</p></li>
+</ol>
+
+
+<p>The remote counterpart is expected to expose the REST interfaces with the following signature conventions:</p>
+
+<ul>
+<li><p>for object creation: POST <host>/<service>/<canonical-name-of-object-java-class>. The passed JSON represents the instance of the corresponding Java bean class.</p></li>
+<li><p>for object update: PUT <host>/<service>/<canonical-name-of-object-java-class>/<id>. The passed JSON represents the instance of the corresponding Java bean class to be updated. The id is the value of the id field of the updated object.</p></li>
+<li><p>for object delete: DELETE <host>/<service>/<canonical-name-of-object-java-class>/<id>. No request body is passed. The id is the value of the id field of the deleted object.</p></li>
+<li><p>for individual object access by ID: GET <host>/<service>/<canonical-name-of-object-java-class>/<id>. No request body is passed. The id is the value of the id field of the deleted object. Should return the JSON representation of the object of the specified class and with the specified id.</p></li>
+<li><p>for object access by type: GET <host>/<service>/<canonical-name-of-object-java-class>. No request body is passed. Should return the JSON array representation of the objects of the specified class.</p></li>
+<li><p>for object search: GET <host>/<service>/objects. Query object is passed as &#8220;filter&#8221; query parameters in JSON representation. Should return the JSON map with full java class names as the keys and the corresponding array of the objects of those classes matching the criteria.</p></li>
+<li><p>for batch update: POST <host>/<service>/objects. Passes the JSON representation of the eu.trentorise.smartcampus.storage.remote.BatchData class describing the update. The class contains &#8220;created&#8221; map of the objects to be created (full java class name as a key and list of objects as value), &#8220;updated&#8221; map of the objects to be updated (full java class name as a key and list of objects as value), and &#8220;deleted&#8221; map of the objects to be deleted (full java class name as a key and list of objectIds as value).</p></li>
+</ul>
+
+
+<h3>Local storage</h3>
+
+<p>The implementation of the local Android storage is based on the SQLite database. This requires the mapping between the app object model and the table model of the underlying DB. The following steps are required in order to realize the local storage:</p>
+
+<ol>
+<li><p>Define the data model to be stored, i.e., te objects to be saved. The required data model has to be defined as Java Beans that inherit from eu.trentorise.smartcampus.storage.BasicObject.</p></li>
+<li><p>Define the storage configuration. To do this it is necessary to:</p>
+
+<ol>
+<li><p>implement the eu.trentorise.smartcampus.storage.db.StorageConfiguration interface. Specifically, define which Java Bean classes are stored in sync storage (method getClasses), what the name of the DB table for each bean to use (method getTableName), and which storage helper to use for each of the bean types.</p></li>
+<li><p>For each of the stored types implement the eu.trentorise.smartcampus.storage.db.BeanStorageHelper interface. Specifically, define the conversion of the data cursor row to the bean (method toBean), conversion of the bean to DB content (method toContent) and describe the object-specific column format (i.e., type and metadata in the SQLite format, method getColumnDefinitions).</p></li>
+</ol>
+</li>
+<li><p>Instantiate the eu.trentorise.smartcampus.storage.sync.SyncStorage class passing the Context, appToken, database name and version, and the storage configuration.</p></li>
+<li><p>Manipulate the data of the storage using the corresponding methods.</p></li>
+</ol>
+
+
+<h3>Data synchronization support</h3>
+
+<p>The storage library supports data synchronization with the remote services. Specifically, the any of the stored object is versioned and the current DB object version is exploited in order to implement the incremental data synchronization: only the changed/new/deleted data is being transferred to/from the services. To perform the synchronization the SyncStorage class provides the implementation of the synchronize method, given the user authentication token, remote host, and service data.</p>
+
+<p>The possible implementations of the scheduled data synchronization is described in Data Synchronization section.</p>
+
+<h2>Communication with SmartCampus Services</h2>
+
+<p>The client-server protocol defines the communication instructions between the application client (e.g., Android or Web Browser client) and the exposed VAS services and APIs. The generic model of the protocol structured as in the following figure.</p>
 
 </article>
 
