@@ -112,10 +112,10 @@
 </ul>
 
 
-<pre style="font-size: 18px">
-    android:sharedUserId="eu.trentorise.smartcampus.shared"
-    android:sharedUserLabel="SmartCampus"
-</pre>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>android:sharedUserId="eu.trentorise.smartcampus.shared"
+</span><span class='line'>android:sharedUserLabel="SmartCampus"</span></code></pre></td></tr></table></div></figure>
 
 
 <p></p>
@@ -138,9 +138,8 @@
 </ul>
 
 
-<pre style="font-size: 18px">
-    <uses-sdk android:minSdkVersion="8" ... />
-</pre>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;uses-sdk android:minSdkVersion="8" ... /&gt;</span></code></pre></td></tr></table></div></figure>
 
 
 <h2>Authentication</h2>
@@ -152,9 +151,15 @@
 <p>To acquire the authentication token to use when calling remote service, the following steps are necessary:</p>
 
 <ol>
-<li><h4>get the reference to the SCAccessProvider:</h4>
+<li><h4>get the reference to the SCAccessProvider:</h4></li>
+</ol>
 
-<p> SCAccessProvider accessProvider = new AMSCAccessProvider();</p></li>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>SCAccessProvider accessProvider = new AMSCAccessProvider();</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
 <li><h4>Acquire the token using one of the methods exposed by the access provider:</h4>
 
 <ul>
@@ -238,6 +243,145 @@ calling activity should implement the Activity.onActivityResult method to proces
 <h2>Communication with SmartCampus Services</h2>
 
 <p>The client-server protocol defines the communication instructions between the application client (e.g., Android or Web Browser client) and the exposed VAS services and APIs. The generic model of the protocol structured as in the following figure.</p>
+
+<p><img src="/android/protocol.png" title="Protocol" alt="screen" /></p>
+
+<p>Specifically, the interaction between the device and the server is performed on top of the Protocol Carrier that implements the low level transport functionalities. On top of this component, the protocol implements various Protocol Modules that implement different commonly used scenarios for the SmartCampus platform. The modules are realized through two submodules: the client-side part and the server-side part. The app in this regard defines which of the modules have to be used and how. Depending on the specific module, the VAS should provide the implementation of some interfaces required by the module (e.g., notification interfaces or storage interfaces) both on the client and on the server.</p>
+
+<p>The protocol carrier library provides the necessary functionalities to perform immediate and deferred requests (see the specification for details). The relevant classes are:</p>
+
+<ul>
+<li><p>eu.trentorise.smartcampus.protocolcarrier.ProtocolCarrier: exposes the invokeSync(MessageRequest, AppToken, AuthToken) method to perform a syncnronous immediate request.</p></li>
+<li><p>eu.trentorise.smartcampus.protocolcarrier.AsyncProtocolCarrier: exposes the methods like invokeAsync(MessageRequest, AppToken, AuthToken, Callback, DeferredConf) to make asynchronous request, activate desactivate the app messages using start(AppToken)/stop(AppToken), retrieve the list of messages, clear the list, or removing an individual message from it.</p></li>
+<li><p>eu.trentorise.smartcampus.protocolcarrier.sync.AsyncService: the background service that manages the delivery of the pending messages and their persistence.</p></li>
+</ul>
+
+
+<h2>Data Synchronization</h2>
+
+<p>To synchronize locally stored data with the remote services, two approaches can be applied. The first use Android synchronization API (recommended for most of the situatuions), while another uses the android.storage library components to manage and perform periodic updates. The first one is best suited when there are no strong constraints on update timeliness but the updates should be performed even if the application and its background services are not started. The second one gives more control on when and how the synchronization takes place, but requires the application being activated in order to start synchronization cycle.</p>
+
+<p>When it comes to the synchronization of the data storage implemented as in section Data Storage, the remote service should adhere to the following constraints:</p>
+
+<ul>
+<li><p>the client-side java classes should have the same signature as their remote counterparts used to populate the REST/JSON objects.</p></li>
+<li><p>the remote REST service should expose POST http interface at <host>/<service> with the following properties</p></li>
+<li><p>since parameter representing the last version when the synchronization has been performed.</p></li>
+<li><p>the request body represents in JSON format the synchronization information including updated map of objects created/updated on the client (full java class name as the key and the list of objects as the value) and deleted map of objects deleted on the client (full java class name as the key and the list of object IDs as the value).</p></li>
+<li><p>the response body that represents in JSON format analogous information, i.e., version defining the server version on the moment of synchronization, updated map of objects created/updated on the server (full java class name as the key and the list of objects as the value), deleted map of objects deleted on the server (full java class name as the key and the list of object IDs as the value).</p></li>
+</ul>
+
+
+<h3>Synchronization with Android Sync Adapter API</h3>
+
+<p>The following steps should be performed in order to perform data synchronization.</p>
+
+<ol>
+<li>Implement and declare Android Content provider (extend android.content.ContentProvider) in the AndroidManifest.xml:</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;provider
+</span><span class='line'>     android:name=".MyProvider" android:exported="false" android:authorities="my.authority"
+</span><span class='line'>  android:syncable="true" android:label="my label" /&gt;  </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Note that the provider may have empty implementation if the synchronized data storage is not exposed to the other apps.</p>
+
+<ol>
+<li><p>Implement Sync Adapter (extends android.content.AbstractThreadedSyncAdapter) that performs actual data synchronization (method onPerformSync). Specifically, this may amount to calling SyncStorage.synchronize() method.</p></li>
+<li><p>Implement and declare synchronization service that returns a reference to the !IBinder interface exposed by the SyncAdapter implementation class.</p></li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'> &lt;service
+</span><span class='line'>     android:name=".MySyncService" android:exported="false" &gt;
+</span><span class='line'>     &lt;intent-filter&gt;
+</span><span class='line'>         &lt;action android:name="android.content.SyncAdapter" /&gt;
+</span><span class='line'>     &lt;/intent-filter&gt;
+</span><span class='line'>
+</span><span class='line'>     &lt;meta-data
+</span><span class='line'>         android:name="android.content.SyncAdapter"
+</span><span class='line'>         android:resource="@xml/syncadapter" /&gt;
+</span><span class='line'> &lt;/service&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Note that the service points to the file describing the Sync Adapter metadata.</p>
+
+<ol>
+<li>Define the Sync Adapter metadata as follows:</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;sync-adapter xmlns:android="http://schemas.android.com/apk/res/android"
+</span><span class='line'>    android:contentAuthority="my.authority"
+</span><span class='line'>    android:accountType="eu.trentorise.smartcampus.account"/&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Note the reference to the SmartCampus account type. This is required for correct synchronization under SmartCampus account.</p>
+
+<h3>Synchronization using Sync Storage API</h3>
+
+<p><strong>android.storage</strong> library provides additional classes to implement periodic synchronization of the corresponding data storage. These APIs provides more flexible and programmabl way to perform and schedule the data synchronization at cost of less control over the synchronization activation and termination.</p>
+
+<p>To use this approach, it is necessary to accomplish the following steps:</p>
+
+<ol>
+<li>Declare the use of eu.trentorise.smartcampus.storage.SyncStorageService (or its subclass) in AndroidManifest.xml:</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;service android:name=".MySyncStorageService" android:exported="false" /&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>Instantiate synchronization manager referring to this service:</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>SyncManager mSyncManager = new SyncManager(mContext, MySyncStorageService.class);</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>Instantiate the synchronization configuration with</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>SyncStorageConfiguration config = new SyncStorageConfiguration(sc, serviceHost, serviceAddress, syncIntervalInMillis);</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>Activate periodic synchronization cycle</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mSyncManager.start(authToken, appToken, config);</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>Perform other synchronization operations using the manager, such as stopping the synchronization cycle, restarting, or forcing immediate asynchronous call.</li>
+</ol>
+
 
 </article>
 

@@ -1,4 +1,7 @@
-@import url("http://fonts.googleapis.com/css?family=Lato:400,700,900,400italic");
+
+
+/*@import url("http://fonts.googleapis.com/css?family=Lato:400,700,900,400italic");*/
+@import url("http://fonts.googleapis.com/css?family=Maven Pro&subset=latin");
 @font-face {
   font-family: "Flat-UI-Icons-16";
   src: url("../fonts/Flat-UI-Icons-16.eot");
@@ -178,7 +181,7 @@
 body {
   color: #BDC3C7;
   background: #34495e;
-  font: 18px/1.831 "Quicksand", sans-serif; }
+  font: 16px/1.831 "Maven Pro", sans-serif; }
 
 a {
   color: #3498DB;
