@@ -1,8 +1,20 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
+        <loc>http://smartcampuslab.github.io/credits/</loc>
+        <lastmod>2013-05-08T14:47:20+02:00</lastmod>
+    </url>
+    <url>
         <loc>http://smartcampuslab.github.io/architecture/</loc>
         <lastmod>2013-05-07T16:24:24+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://smartcampuslab.github.io/approach/</loc>
+        <lastmod>2013-05-08T14:10:54+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://smartcampuslab.github.io/hackathon/</loc>
+        <lastmod>2013-05-08T14:44:02+02:00</lastmod>
     </url>
     <url>
         <loc>http://smartcampuslab.github.io/robots.txt</loc>
@@ -10,7 +22,7 @@
     </url>
     <url>
         <loc>http://smartcampuslab.github.io/</loc>
-        <lastmod>2013-05-07T17:40:55+02:00</lastmod>
+        <lastmod>2013-05-08T14:47:34+02:00</lastmod>
     </url>
     <url>
         <loc>http://smartcampuslab.github.io/blog/archives/</loc>

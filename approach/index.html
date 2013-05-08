@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>SmartCampus Open Source Approach - Smart Campus</title>
+  <meta name="author" content="Smart Campus">
+
+  
+  <meta name="description" content="SmartCampus Open Source Approach Foreword The software developed by SmartCampus is being made available as Open Source. This page provides some &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://smartcampuslab.github.io/approach">
+  <link href="/favicon.png" rel="icon">
+  <link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+  <link href="/stylesheets/bootstrap.css" rel="stylesheet">
+  <link href="/stylesheets/bootstrap-responsive.css" rel="stylesheet">
+  <link href="/stylesheets/flat-ui.css" rel="stylesheet">
+  <link href="/atom.xml" rel="alternate" title="Smart Campus" type="application/atom+xml">
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap-collapse.js"></script>
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35617863-3']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <div class="navbar navbar-inverse navbar-static-top">
+  	<div class="navbar-inner">
+  	  <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+  	  	<div class="nav-collapse collapse navbar-responsive-collapse" style="height:0;">
+  	      <ul class="nav">
+    <li><a href="/">Home</a></li>
+    <li><a href="/approach">Approach</a></li>
+    <li><a href="/architecture">Architecture</a></li>
+    <li><a href="/android">Android How To</a></li>
+    <li><a href="/hackathon">Hackathon Docs</a></li>
+    <li><a href="/credits">Credits</a></li>
+    <li><a href="http://www.smartcampuslab.it/swabout/s">About</a></li>
+</ul>
+
+  	    </div>
+  	  </div>
+  	</div>
+  </div>
+  <div class="container" id="main">
+    <div class="span12">
+      <div class="row-fluid">
+        <div id="content">
+          <article role="article">
+  
+  <header>
+    <div class="jumbotron">
+      SmartCampus Open Source Approach
+    </div>
+    
+  </header>
+  
+  <div class="blog-index">
+    <h2>Foreword</h2>
+    <p>The software developed by SmartCampus is being made available as Open Source. This page provides some documentation about the approach that has been followed and about how to take full advantage of the public release of SmartCampus code base.
+    The components of the overall SmartCampus code base are published under the Apache License Version 2.0 (​http://www.apache.org/licenses/LICENSE-2.0.html).
+    The access to the source code is free.</p>
+  </div>
+
+
+<p>  <h2>Open Source approach</h2>
+  <p>The open source release of the project code base is one of the way by which SmartCampus is trying to build an pro-active community around the design and development of services for the students of the University of Trento.</p></p>
+
+<p>  <p>The goal of the SmartCampus open source release is to allow anybody within our growing community to actively contribute to the development of new services. More precisely, the goal of this initial release is to enable the development of Android client applications based on the SmartCampus platform. Future releases of the code base will grant the possibility to contribute also to the development of the SmartCampus platform itself.</p></p>
+
+<p>  <h2>Open Source structure</h2></p>
+
+<p>  The infrastructure of the Open Source release consists of:</p>
+
+<ul>
+<li>a set of SVN repositories</li>
+<li>a Nexus artifact repository</li>
+<li>a TRAC instance</li>
+</ul>
+
+
+<p>  <p>Currently, the release involves four different kinds of artifacts:</p></p>
+
+<ul>
+<li>VAS (Value Added Service): the services implemented within the SmartCampus project (splitted into components):</li>
+<ul>
+  <li>Android client</li>
+  <li>web application</li>
+  <li>domain libraries</li>
+  <li>libraries for wrapped external services</li>
+</ul>
+<li>platform components in two flavours:
+<ul>
+  <li>as source code</li>
+  <li>as libraries (on a artifact repository)</li>
+</ul>
+<li>common libraries for Android client apps</li>
+<li>wrapping of external services</li>
+</ul>
+
+
+<p>  <h2>SVN</h2></p>
+
+<p>  <p>The code is stored into a set of ​Subversion (SVN) repositories.</p>
+  <p>The SVN repositories can be browsed on the web at ​http://svn.smartcampuslab.it/svn/</p>
+  <p>The contents of the SVN repositories is available for download at the following URLs:</p></p>
+
+<ul>
+<li><h5>platform:</h5></li>
+<ul>
+  <li>the components of the SmartCampus platform that are needed to execute services</li>
+  <li>http://svn.smartcampuslab.it/svn/platform</li>
+</ul>
+<li><h5>clientlibs:</h5></li>
+<ul>
+  <li>the Android common libraries that are needed to execute the services</li>
+  <li>http://svn.smartcampuslab.it/svn/clientlibs</li>
+</ul>
+<li><h5>services:</h5></li>
+<ul>
+  <li>the external services wrapped into the platform to be used by the VAS</li>
+  <li>http://svn.smartcampuslab.it/svn/services</li>
+</ul>
+<li><h5>VAS:</h5></li>
+<ul>
+  <li>the services developed by SmartCampus</li>
+  <li>communicator: ​http://svn.smartcampuslab.it/svn/vas/communicator</li>
+  <li>communitymanager: ​http://svn.smartcampuslab.it/svn/vas/communitymanager</li>
+  <li>journeyplanner: ​http://svn.smartcampuslab.it/svn/vas/journeyplanner</li>
+  <li>discovertrento: ​http://svn.smartcampuslab.it/svn/vas/discovertrento</li>
+  <li>experiencebuster: ​http://svn.smartcampuslab.it/svn/vas/experiencebuster</li>
+  <li>portfolio: ​http://svn.smartcampuslab.it/svn/vas/portfolio</li>
+  <li>launcher: ​http://svn.smartcampuslab.it/svn/vas/launcher</li>
+</ul>
+</ul>
+
+
+<p>  To check out the code from any of these repositories(anonymous, read-only Git access), do this:</p>
+
+<p>  git clone <repo_URL></p>
+
+<p>  For instance to checkout a platform project the command to be issued is:</p>
+
+<p>  git clone https://github.com/smartcampuslab/clientlibs-AndroidJourneyPlannerLib.git</p>
+
+<p>  To do the clone, you&#8217;ll need <a href="http://git-scm.com/">Git</a>.</p>
+
+<p>  <h2>Nexus</h2></p>
+
+<p>  <p>Some portions of the code that are used by the platform/services, but that are not part of SmartCampus production, are made available, under their own license, as libraries on a Nexus instance. The downloadable packages, depending on the artifact, may include one or more of these subpackages:</p></p>
+
+<ul>
+<li>source code snapshot</li>
+<li>binaries</li>
+<li>API docs</li>
+</ul>
+
+
+<p>  <h2>TRAC</h2></p>
+
+<p>  If you are here you are probably already aware of the existence of a SmartCampus TRAC system linked to the SmartCampus SVN repositories. This instance of TRAC is common to all the repositories and is used to provide:</p>
+
+<ul>
+<li>a wiki where to supply documentation about the project source code</li>
+<li>a ticketing system where to track bugs and enhancements requests</li>
+</ul>
+
+
+<p>  <h2>License</h2></p>
+
+<p>  All the code developed within the SmartCampus project is available under the terms of the ​Apache Software License version 2.0</p>
+
+<p></div></p>
+
+</article>
+
+</div>
+
+
+        </div>
+      </div>
+      <div class="row-fluid">
+        <footer role="contentinfo">
+          
+
+
+        </footer>
+      </div>
+    </div>
+  </div>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

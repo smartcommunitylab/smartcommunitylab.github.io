@@ -1,0 +1,220 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>ICT DAYS 2013 Hackaton Documentation - Smart Campus</title>
+  <meta name="author" content="Smart Campus">
+
+  
+  <meta name="description" content="ICT DAYS 2013 Hackaton Documentation IN CASE OF PROBLEMS OR URGENT QUESTIONS Call one of the following numbers: 335 685 54 35 (Raman)
+366 650 83 14 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://smartcampuslab.github.io/hackathon">
+  <link href="/favicon.png" rel="icon">
+  <link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+  <link href="/stylesheets/bootstrap.css" rel="stylesheet">
+  <link href="/stylesheets/bootstrap-responsive.css" rel="stylesheet">
+  <link href="/stylesheets/flat-ui.css" rel="stylesheet">
+  <link href="/atom.xml" rel="alternate" title="Smart Campus" type="application/atom+xml">
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap-collapse.js"></script>
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35617863-3']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <div class="navbar navbar-inverse navbar-static-top">
+  	<div class="navbar-inner">
+  	  <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+  	  	<div class="nav-collapse collapse navbar-responsive-collapse" style="height:0;">
+  	      <ul class="nav">
+    <li><a href="/">Home</a></li>
+    <li><a href="/approach">Approach</a></li>
+    <li><a href="/architecture">Architecture</a></li>
+    <li><a href="/android">Android How To</a></li>
+    <li><a href="/hackathon">Hackathon Docs</a></li>
+    <li><a href="/credits">Credits</a></li>
+    <li><a href="http://www.smartcampuslab.it/swabout/s">About</a></li>
+</ul>
+
+  	    </div>
+  	  </div>
+  	</div>
+  </div>
+  <div class="container" id="main">
+    <div class="span12">
+      <div class="row-fluid">
+        <div id="content">
+          <article role="article">
+  
+  <header>
+    <div class="jumbotron">
+      ICT DAYS 2013 Hackaton Documentation
+    </div>
+    
+  </header>
+  
+  <h2>IN CASE OF PROBLEMS OR URGENT QUESTIONS</h2>
+
+<p>Call one of the following numbers:</p>
+
+<ul>
+<li>335 685 54 35 (Raman)</li>
+<li>366 650 83 14 (Dawid)</li>
+<li>366 650 41 02 (Marco)</li>
+</ul>
+
+
+<p>Or use the skypes:</p>
+
+<ul>
+<li>raman.kazhamiakin (Raman)</li>
+<li>kulcak_maly (Dawid)</li>
+<li>marco_pistore (Marco)</li>
+</ul>
+
+
+<p>Or GTalk:</p>
+
+<ul>
+<li>kazhamiakin@gmail.com (Raman)</li>
+<li>shogun999@gmail.com (Dawid)</li>
+<li>marco.pistore@gmail.com (Marco)</li>
+</ul>
+
+
+<h2>NOTIFICATIONS AND UPDATES</h2>
+
+<ul>
+<li>20/03/2013 21:00. An update of the SDK is available. Fixed the problem with some of the client libs.</li>
+<li>21/03/2013 10:30. An update of the SDK is available. Fixed the problem with login in apps.</li>
+</ul>
+
+
+<h2>Overview</h2>
+
+<p>Here we present the documentation regarding the SmartCampus platform, the description of the exposed services, SDK, and other development-related resources for the implementation and deployment of the SmartCampus apps.</p>
+
+<h2>SmartCampus: Introduction</h2>
+
+<p>These <a href="/hackathon/SC_Hackaton_Introduction.pdf">slides</a>​ provide a high level introduction of the SmartCampus project.</p>
+
+<h2>SmartCampus Platform Architecture</h2>
+
+<p>Logically, the SmartCampus Platform consists of the three main elements:</p>
+
+<ul>
+<li><p>The SmartCampus core platform that includes the core platform middleware that relates different modules and components and hosts the core services and applications. The modules, also referred to as Engines, provide the generic purpose functionality, including, e.g., the Social networking and Semantic reasoning, service integration and event processing, trip planning and transport information, etc. The core services, such as the Access control, user profile storage, file storage and management, and communications, are build also using these engines providing necessary APIs for many common tasks and features. The core services and apps are hosted in the core platform and are directly available in the form of Web services.</p></li>
+<li><p>The SmartCampus deployment platform based on CloudFoundry, provides hosting for custom applications that are developed in the scope of the SmartCampus project. This is the place where one can deploy its own server-side application used by the client apps when they need to delegate to the server complex computations and tasks. While in the following we provide the documentation for Java-based Web application, the platform, however, exposes a variety of multi-language services and frameworks, including, e.g., MongoDB, MySQL, Redis, Java Web (Tomcat), Spring, Rails, PHP, Play, etc.</p></li>
+<li><p>The SmartCampus Android app sandbox that includes the core apps and libraries providing basic functionality, such as authentication, access to user social network management, etc.</p></li>
+</ul>
+
+
+<p>See <a href="/hackathon/platform.pdf">here​</a> for the high-level description of the SmartCampus core platform.</p>
+
+<h2>SmartCampus Development Resources</h2>
+
+<h3>Core Services and Client Libraries</h3>
+
+<p>The following list of services is exposed in order to address the common use cases on top of the SmartCampus platform.</p>
+
+<ul>
+<li><p>AC Service (<a href="/hackathon/AC%20Service%20DOC.odt">link</a>​). This service aims at providing the identity, authentication, and authorization capabilities for the SmartCampus? applications and services.</p></li>
+<li><p>Profile Service (<a href="/hackathon/PROFILE%20Service%20DOC.odt">link</a>​). User basic profile and custom app-specific profile management functionality.</p></li>
+<li><p>File Storage Service (<a href="/hackathon/STORAGE%20Service%20DOC.odt">link</a>​). This service aims at providing a way to store user files such as, e.g., multimedia.</p></li>
+<li><p>Communicator Service (<a href="/hackathon/COMMUNICATOR%20Service%20DOC.odt">link</a>​). The goal of the Communicator service is to manage notifications to users sent by other users/applications.</p></li>
+<li><p>Social Service (<a href="/hackathon/SOCIAL%20Service%20DOC.odt">link</a>​). The goal of the Social service is to manage the user social connections with respect to the other user and communities as well as to share/follow the information across them.</p></li>
+</ul>
+
+
+<p>Additionally, the following service provide some more specific features:</p>
+
+<ul>
+<li><p>DiscoverTrento Service (<a href="/hackathon/DISCOVERTRENTO%20Service%20DOC.odt">link</a>​). The Discover Trento service allows the retrieval of informations related to the town life: events, POI and stories.</p></li>
+<li><p>JourneyPlanner Service (<a href="/hackathon/JOURNEYPLANNER%20Service%20DOC.odt">link</a>​). Provides the information about the public transportation and exposes the operations for route planning in the city.</p></li>
+</ul>
+
+
+<h2>Android Template Application and SDK</h2>
+
+<p>In the <a href="/hackathon/Android%20DE.odt">following​</a> document the information on the development of the applications for Android OS platform. The documentation describes the libraries and their use, the example application template and the structure of the SDK. The SDK can be downloaded here.</p>
+
+<h2>Java Web app Template Application and SDK</h2>
+
+<p>In the <a href="/hackathon/Java%20DE.odt">following​</a> document one can find a tutorial on the development and deployment of an Java-based Web application on top of the SmartCampus services. The documentation describes the necessary &#8212;CloudFoundry deployment configuration, presents the Java libraries and their use, as well as an example application template. The SDK can be downloaded here​.</p>
+
+</article>
+
+</div>
+
+
+        </div>
+      </div>
+      <div class="row-fluid">
+        <footer role="contentinfo">
+          
+
+
+        </footer>
+      </div>
+    </div>
+  </div>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
