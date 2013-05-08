@@ -151,32 +151,28 @@
 <p>To acquire the authentication token to use when calling remote service, the following steps are necessary:</p>
 
 <ol>
-<li><h4>get the reference to the SCAccessProvider:</h4></li>
-</ol>
-
+<li>get the reference to the SCAccessProvider:</li>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>SCAccessProvider accessProvider = new AMSCAccessProvider();</span></code></pre></td></tr></table></div></figure>
 
+<li> Acquire the token using one of the methods exposed by the access provider:</li>
+  <ul>
+    <li> getAuthToken(Activity activity, String authority): retrieve access token from the running activity. If the token is stored locally, it is returned, otherwise a dedicated Authentication activity starts for result. The
+    calling activity should implement the Activity.onActivityResult method to process the obtained token. The authority attributes defines the required authentication authority. If not specified, the user can login with any authority.</li>
 
-<ol>
-<li><h4>Acquire the token using one of the methods exposed by the access provider:</h4>
+    <li> getAuthToken(Context ctx, String authority, IntentSender intentSender): Retrieve the authentication token from the an arbitrary context. If the token is stored locally, it is returned, otherwise a notification is added to the notification bar. If the user accesses the notification, the Authentication Activity starts and publishes the corresponding authentication result broadcast if successful. In case of implementation based on AccountManager infrastructure (eu.trentorise.smartcampus.ac.authenticator.AMSCAccessProvider), the broadcast with action AccountManager.LOGIN_ACCOUNTS_CHANGED_ACTION is propagated. In case of implementation based on local storage(eu.trentorise.smartcampus.ac.embedded. EmbeddedSCAccessProvider), a broadcast with action eu.trentorise.smartcampus.account.AUTHTOKEN_CHANGED is sent.</li>
 
-<ul>
-<li><p>getAuthToken(Activity activity, String authority): retrieve access token from the running activity. If the token is stored locally, it is returned, otherwise a dedicated Authentication activity starts for result. The
-calling activity should implement the Activity.onActivityResult method to process the obtained token. The authority attributes defines the required authentication authority. If not specified, the user can login with any authority.</p></li>
-<li><p>getAuthToken(Context ctx, String authority, IntentSender intentSender): Retrieve the authentication token from the an arbitrary context. If the token is stored locally, it is returned, otherwise a notification is added to the notification bar. If the user accesses the notification, the Authentication Activity starts and publishes the corresponding authentication result broadcast if successful. In case of implementation based on AccountManager infrastructure (eu.trentorise.smartcampus.ac.authenticator.AMSCAccessProvider), the broadcast with action AccountManager.LOGIN_ACCOUNTS_CHANGED_ACTION is propagated. In case of implementation based on local storage(eu.trentorise.smartcampus.ac.embedded. EmbeddedSCAccessProvider), a broadcast with action eu.trentorise.smartcampus.account.AUTHTOKEN_CHANGED is sent.</p></li>
-<li><p>getAuthToken(Context ctx, String authority): Retrieve the authentication token from the an arbitrary context. If the token is stored locally, it is returned, otherwise the Authentication Activity starts, which, upon successful completion sends the specified intent.</p></li>
-<li><p>readToken(Context ctx, String authority): Read token from the local cache without additional requests if the token is missing.</p></li>
-</ul>
-</li>
-<li><h4>If the token is requested from an activity, implement the Activity.onActivityResult method to process the obtained token.</h4></li>
-<li><h4>Declare the necessary permissions in AndroidManifest.xml:</h4></li>
-</ol>
+    <li> getAuthToken(Context ctx, String authority): Retrieve the authentication token from the an arbitrary context. If the token is stored locally, it is returned, otherwise the Authentication Activity starts, which, upon successful completion sends the specified intent.</li>
 
+    <li> readToken(Context ctx, String authority): Read token from the local cache without additional requests if the token is missing.</li>
+  </ul>
+<li>If the token is requested from an activity, implement the Activity.onActivityResult method to process the obtained token.</li>
 
+<li>Declare the necessary permissions in AndroidManifest.xml:</li>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>&lt;uses-permission android:name="android.permission.GET_ACCOUNTS"/&gt;</span></code></pre></td></tr></table></div></figure>
+</ol>
 
 
 <h2>Data Storage</h2>
@@ -277,26 +273,18 @@ calling activity should implement the Activity.onActivityResult method to proces
 <p>The following steps should be performed in order to perform data synchronization.</p>
 
 <ol>
-<li>Implement and declare Android Content provider (extend android.content.ContentProvider) in the AndroidManifest.xml:</li>
-</ol>
-
-
+<li> Implement and declare Android Content provider (extend android.content.ContentProvider) in the AndroidManifest.xml:</li>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>&lt;provider
 </span><span class='line'>     android:name=".MyProvider" android:exported="false" android:authorities="my.authority"
 </span><span class='line'>  android:syncable="true" android:label="my label" /&gt;  </span></code></pre></td></tr></table></div></figure>
+Note that the provider may have empty implementation if the synchronized data storage is not exposed to the other apps.
 
+<li> Implement Sync Adapter (extends android.content.AbstractThreadedSyncAdapter) that performs actual data synchronization (method onPerformSync). Specifically, this may amount to calling SyncStorage.synchronize() method.</li>
 
-<p>Note that the provider may have empty implementation if the synchronized data storage is not exposed to the other apps.</p>
-
-<ol>
-<li><p>Implement Sync Adapter (extends android.content.AbstractThreadedSyncAdapter) that performs actual data synchronization (method onPerformSync). Specifically, this may amount to calling SyncStorage.synchronize() method.</p></li>
-<li><p>Implement and declare synchronization service that returns a reference to the !IBinder interface exposed by the SyncAdapter implementation class.</p></li>
-</ol>
-
-
+<li> Implement and declare synchronization service that returns a reference to the !IBinder interface exposed by the SyncAdapter implementation class.</li>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -317,21 +305,16 @@ calling activity should implement the Activity.onActivityResult method to proces
 </span><span class='line'>         android:name="android.content.SyncAdapter"
 </span><span class='line'>         android:resource="@xml/syncadapter" /&gt;
 </span><span class='line'> &lt;/service&gt;</span></code></pre></td></tr></table></div></figure>
+Note that the service points to the file describing the Sync Adapter metadata.
 
-
-<p>Note that the service points to the file describing the Sync Adapter metadata.</p>
-
-<ol>
-<li>Define the Sync Adapter metadata as follows:</li>
-</ol>
-
-
+<li> Define the Sync Adapter metadata as follows:</li>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>&lt;sync-adapter xmlns:android="http://schemas.android.com/apk/res/android"
 </span><span class='line'>    android:contentAuthority="my.authority"
 </span><span class='line'>    android:accountType="eu.trentorise.smartcampus.account"/&gt;</span></code></pre></td></tr></table></div></figure>
+</ol>
 
 
 <p>Note the reference to the SmartCampus account type. This is required for correct synchronization under SmartCampus account.</p>
@@ -344,43 +327,89 @@ calling activity should implement the Activity.onActivityResult method to proces
 
 <ol>
 <li>Declare the use of eu.trentorise.smartcampus.storage.SyncStorageService (or its subclass) in AndroidManifest.xml:</li>
-</ol>
-
-
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>&lt;service android:name=".MySyncStorageService" android:exported="false" /&gt;</span></code></pre></td></tr></table></div></figure>
-
-
-<ol>
-<li>Instantiate synchronization manager referring to this service:</li>
-</ol>
-
-
+<li> Instantiate synchronization manager referring to this service:</li>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>SyncManager mSyncManager = new SyncManager(mContext, MySyncStorageService.class);</span></code></pre></td></tr></table></div></figure>
-
-
-<ol>
-<li>Instantiate the synchronization configuration with</li>
-</ol>
-
-
+<li> Instantiate the synchronization configuration with</li>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>SyncStorageConfiguration config = new SyncStorageConfiguration(sc, serviceHost, serviceAddress, syncIntervalInMillis);</span></code></pre></td></tr></table></div></figure>
-
-
-<ol>
-<li>Activate periodic synchronization cycle</li>
-</ol>
-
-
+<li> Activate periodic synchronization cycle</li>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>mSyncManager.start(authToken, appToken, config);</span></code></pre></td></tr></table></div></figure>
+<li> Perform other synchronization operations using the manager, such as stopping the synchronization cycle, restarting, or forcing immediate asynchronous call.</li>
 
+</ol>
+
+
+<h2>Common Tasks</h2>
+
+<p>The core applications and library expose a set of functionalities that may be used across other apps.</p>
+
+<h3>Creating and following a topic</h3>
+
+<p>Using the Community Manager app and the it is possible to create a news topic starting from an existing object of certain type. To do this, one has to</p>
 
 <ol>
-<li>Perform other synchronization operations using the manager, such as stopping the synchronization cycle, restarting, or forcing immediate asynchronous call.</li>
+<li><p>create an instance of eu.trentorise.smartcampus.android.common.follow.FollowEntityObject with semantic entity of the object (should not be null), object “name”, and its semantic type. One of the following types is currently supported: “location”, “event”, “portfolio”, “experience”, “journey”, “narrative” (story), “computer file” (for an arbitrary file, including media).</p></li>
+<li><p>Invoke eu.trentorise.smartcampus.android.common.follow.FollowHelper.follow passing the calling Android activity and the above object. This will start the “follow” activity and the corresponding topic form.
+Note that this requires the CommunityManager application to be installed.</p></li>
 </ol>
+
+
+<h3>Sharing an object</h3>
+
+<p>Using the Community Manager app and the it is possible to share an existing object. To do this, one has to</p>
+
+<ol>
+<li><p>create an instance of eu.trentorise.smartcampus.android.common.sharing.ShareEntityObject with semantic entity of the object (should not be null), object “name”, and its semantic type. One of the following types is currently supported: “location”, “event”, “portfolio”, “experience”, “journey”, “narrative” (story), “computer file” (for an arbitrary file, including media).</p></li>
+<li><p>Invoke eu.trentorise.smartcampus.android.common.sharing.SharingwHelper.share passing the calling Android activity and the above object. This will start the “share” activity and the corresponding form.
+Note that this requires the CommunityManager application to be installed.</p></li>
+</ol>
+
+
+<h3>Tagging Dialog</h3>
+
+<p>A frequent common task in the SmartCampus apps is to provide the user with the possibility to annotate the objects with semantic/textual tags. To start the tagging dialog it is necessary to instantiate eu.trentorise.smartcampus.android.common.tagging.TaggingDialog passing</p>
+
+<ul>
+<li><p>an instance of OnTagsSelectedListener interface that should handle the result of the tag selection;</p></li>
+<li><p>an instance of TagProvider interface that returns a list of tag candidates given the textual prefix;</p></li>
+<li><p>optional array of SemanticSuggestion instances that represent the currently associated object tags.</p></li>
+</ul>
+
+
+<p>The simplest way to implement the TagProvider interface is to exploit the eu.trentorise.smartcampus.android.common.tagging.SuggestionHelper.getSuggestions method that, given the prefix, current execution context, platform host, authentication token and app token, provides the list of matching suggestions calling the remote service exposed by Community Manager application.</p>
+
+<h3>Geocoding</h3>
+
+<p>smartcampus.android.commons library provide helper methods to perform geocoding and reverse geocoding operations. In particular, using eu.trentorise.smartcampus.android.common.SCGeocoder one can use</p>
+
+<ul>
+<li><p>findAddressesAsync to retrieve asynchronously the list of matching addresses for the given coordinates;</p></li>
+<li><p>getFromLocationNameSC to retrieve the list of addresses matching the arbitrary text, optionally restricting to the specific region, country, and administrative area data.</p></li>
+<li><p>getFromLocationSC to retrieve synchronously the list of matching addresses for the given coordinates.</p></li>
+</ul>
+
+
+<h3>Navigation Directions</h3>
+
+<p>In order to open the Journey Planner interface to drive to a specific point from the current user location or from another point one can use the following utility method:</p>
+
+<ul>
+<li>eu.trentorise.smartcampus.android.common.navigation.NavigationHelper.bringMeThere providing the start/end address objects.</li>
+</ul>
+
+
+<p>Visualising Objects</p>
+
+<p>The class eu.trentorise.smartcampus.android.common.view.ViewHelper provides an utility methods to visualize the specified SmartCampus object (such as an event, story or portfolio):</p>
+
+<ul>
+<li><p>viewInApp(Activity ctx, String type, long entityId, Bundle parameters) that given the object type (as in sharing/following), the semantic entity ID and (optionally) specific parameters.</p></li>
+<li><p>viewInApp(Activity ctx, String type, String objectId, Bundle parameters) that given the object type (as in sharing/following), the object ID and (optionally) specific parameters.</p></li>
+</ul>
 
 
 </article>
