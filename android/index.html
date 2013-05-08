@@ -170,7 +170,6 @@
     <li> getAuthToken(Context ctx, String authority, IntentSender intentSender): Retrieve the authentication token from the an arbitrary context. If the token is stored locally, it is returned, otherwise a notification is added to the notification bar. If the user accesses the notification, the Authentication Activity starts and publishes the corresponding authentication result broadcast if successful. In case of implementation based on AccountManager infrastructure (eu.trentorise.smartcampus.ac.authenticator.AMSCAccessProvider), the broadcast with action AccountManager.LOGIN_ACCOUNTS_CHANGED_ACTION is propagated. In case of implementation based on local storage(eu.trentorise.smartcampus.ac.embedded. EmbeddedSCAccessProvider), a broadcast with action eu.trentorise.smartcampus.account.AUTHTOKEN_CHANGED is sent.</li>
 
     <li> getAuthToken(Context ctx, String authority): Retrieve the authentication token from the an arbitrary context. If the token is stored locally, it is returned, otherwise the Authentication Activity starts, which, upon successful completion sends the specified intent.</li>
-
     <li> readToken(Context ctx, String authority): Read token from the local cache without additional requests if the token is missing.</li>
   </ul>
 <li>If the token is requested from an activity, implement the Activity.onActivityResult method to process the obtained token.</li>
