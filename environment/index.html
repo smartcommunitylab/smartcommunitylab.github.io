@@ -5,11 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: announcements - Smart Campus</title>
+  <title>Environment Setup (Eclipse Indigo / Juno) - Smart Campus</title>
   <meta name="author" content="Smart Campus">
 
   
-  <meta name="description" content="Category: announcements">
+  <meta name="description" content="Environment Setup (Eclipse Indigo / Juno) Installation Install Egit
+Install “Maven Integration for Eclipse”
+“Import&#8230;” -> “Checkout Maven &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://smartcampuslab.github.ioblog/categories/announcements">
+  <link rel="canonical" href="http://smartcampuslab.github.io/environment">
   <link href="/favicon.png" rel="icon">
   <link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
   <link href="/stylesheets/bootstrap.css" rel="stylesheet">
@@ -81,128 +83,67 @@
   
   <header>
     <div class="jumbotron">
-      Category: Announcements
+      Environment Setup (Eclipse Indigo / Juno)
     </div>
     
   </header>
   
-  <div id="blog-archives" class="category">
+  <h2>Installation</h2>
+
+<ol>
+<li><p>Install Egit</p></li>
+<li><p>Install “Maven Integration for Eclipse”</p></li>
+<li><p>“Import&#8230;” -> “Checkout Maven Project from SCM”</p></li>
+<li><p>“&#8221;Find more SCM connectors in the m2e Marketplace”, install the Git connector (m2e-egit Maven SCM Handler for Egit by Sonatype Inc), restart</p></li>
+</ol>
 
 
-<div class="row-fluid">
-	<div class="span1">
-	
-	
-	  
-	    <h2>2013</h2>
-	
-	</div>
-	  <div class="span11">
-		<article>
-		  
-<div class="row-fluid">
-	<div class="span1">
-		<h1 class="date-time"><time datetime="2013-05-08T11:14:00+02:00" pubdate><span class='month'>May</span> <span class='day'>08</span><span class='year'><!--2013--></span></time></h1>
-	</div>
-	<div class="span10">
-		<h1><a href="/blog/2013/05/08/resources-relocated/">Resources Relocated</a></h1>
-	</div>
-</div>
+<h2>Usage</h2>
 
-<div class="row-fluid">
-	<div class="span1">
-	</div>
-	<div class="span10">
-		
+<h3>Maven</h3>
 
-		<footer class="archive">
-		  <span class="categories">posted in <a class='category' href='/blog/categories/announcements/'>announcements</a></span>
-		</footer>
-		
-	</div>
-</div>
+<h4>Pull from repo</h4>
+
+<ol>
+<li><p>“Import&#8230;” -> “Checkout Maven Project from SCM”</p></li>
+<li><p>Select Git in the dropdown menu and get the SCM URL from the repo page. Es: for https://github.com/smartcampuslab/smartcampus.vas.commons, the url is https://github.com/smartcampuslab/smartcampus.vas.commons.git</p></li>
+<li><p>Choose the directory to pull the project into (I suggest a subdirectory of your eclipse workspace. Change “Preferences” -> “Git” -> “Default repository folder”)</p></li>
+</ol>
 
 
-		</article>
-	  </div>
-	</div>
-</div>
+<h4>Commit (local or to repo)</h4>
+
+<ol>
+<li><p>“Team” -> “Commit”</p></li>
+<li><p>“Commit” to commit locally (you need to push later), or “Commit and push” to commit directly to the repo</p></li>
+</ol>
 
 
-<div class="row-fluid">
-	<div class="span1">
-	
-	
-	</div>
-	  <div class="span11">
-		<article>
-		  
-<div class="row-fluid">
-	<div class="span1">
-		<h1 class="date-time"><time datetime="2013-05-01T11:51:00+02:00" pubdate><span class='month'>May</span> <span class='day'>01</span><span class='year'><!--2013--></span></time></h1>
-	</div>
-	<div class="span10">
-		<h1><a href="/blog/2013/05/01/svn-resources-relocated/">SVN Resources Relocated</a></h1>
-	</div>
-</div>
+<h4>Share a project</h4>
 
-<div class="row-fluid">
-	<div class="span1">
-	</div>
-	<div class="span10">
-		
-
-		<footer class="archive">
-		  <span class="categories">posted in <a class='category' href='/blog/categories/announcements/'>announcements</a></span>
-		</footer>
-		
-	</div>
-</div>
+<ol>
+<li>“Team” -> “Share Project&#8230;” -> “Git”</li>
+</ol>
 
 
-		</article>
-	  </div>
-	</div>
-</div>
+<p>Important: if you don’t check “Use or create repository in parent folder of project”, Git will move the project in its directory (“Preferences” -> “Git” -> “Default repository folder”)!</p>
 
+<h3>Android</h3>
 
-<div class="row-fluid">
-	<div class="span1">
-	
-	
-	</div>
-	  <div class="span11">
-		<article>
-		  
-<div class="row-fluid">
-	<div class="span1">
-		<h1 class="date-time"><time datetime="2013-01-24T11:57:00+01:00" pubdate><span class='month'>Jan</span> <span class='day'>24</span><span class='year'><!--2013--></span></time></h1>
-	</div>
-	<div class="span10">
-		<h1><a href="/blog/2013/01/24/app-new-names/">App New Names</a></h1>
-	</div>
-</div>
+<p>Hint: use your workspace directory as Git folder</p>
 
-<div class="row-fluid">
-	<div class="span1">
-	</div>
-	<div class="span10">
-		
+<ol>
+<li><p>Go to the project page, es: https://github.com/smartcampuslab/android.journeyplanner.lib</p></li>
+<li><p>Select HTTP and copy to clipboard the URL for the .git file, es: https://github.com/smartcampuslab/android.journeyplanner.lib.git</p></li>
+<li><p>“Import&#8230;” -> “Git” -> “Projects from Git”</p></li>
+<li><p>Select “URI”</p></li>
+<li><p>The next form will be filled; add your Github username and password, then next</p></li>
+<li><p>Select all the branches, next</p></li>
+<li><p>The destination directory suggested is fine, the initial branch “master” too. If the project contains submodules maybe you want to check “Clone submodules”</p></li>
+<li><p>Now with the Wizard import existing project, next</p></li>
+<li><p>Select the project, finish!</p></li>
+</ol>
 
-		<footer class="archive">
-		  <span class="categories">posted in <a class='category' href='/blog/categories/announcements/'>announcements</a></span>
-		</footer>
-		
-	</div>
-</div>
-
-
-		</article>
-	  </div>
-	</div>
-</div>
-
-</div>
 
 </article>
 </div>
