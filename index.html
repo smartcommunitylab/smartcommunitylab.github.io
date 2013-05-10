@@ -9,8 +9,7 @@
   <meta name="author" content="Smart Campus">
 
   
-  <meta name="description" content="Smart Campus Services With and For the People. Welcome!
-Welcome into the SmartCampus open source wiki. Important announcement: RESOURCES RELOCATED! &hellip;">
+  <meta name="description" content="Smart Campus Services With and For the People. Foreword The software developed by SmartCampus available as Open Source. This page provides some &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,12 +63,12 @@ Welcome into the SmartCampus open source wiki. Important announcement: RESOURCES
   	  	<div class="nav-collapse collapse navbar-responsive-collapse" style="height:0;">
   	      <ul class="nav">
     <li><a href="/">Home</a></li>
-    <li><a href="/approach">Approach</a></li>
+    <li><a href="/news">News</a></li>
     <li><a href="/architecture">Architecture</a></li>
     <li><a href="/android">Android How To</a></li>
     <li><a href="/hackathon">Hackathon Docs</a></li>
     <li><a href="/credits">Credits</a></li>
-    <li><a href="http://www.smartcampuslab.it/swabout/s">About</a></li>
+    <li><a href="http://www.smartcampuslab.it/swabout">About</a></li>
 </ul>
 
   	    </div>
@@ -86,58 +85,108 @@ Welcome into the SmartCampus open source wiki. Important announcement: RESOURCES
     <h2 class="tagline">Services With and For the People.</h2>
   </div>
 </div>
-  <div class="blog-index">
-<a href="https://github.com/smartcampuslab"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+<div class="blog-index">
+    <a href="https://github.com/smartcampuslab"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
 
-<h2>Welcome!</h2>
-Welcome into the SmartCampus open source wiki.
+<div class="blog-index">
+    <h2>Foreword</h2>
+    <p>The software developed by SmartCampus available as Open Source. This page provides some documentation about the approach that has been followed and about how to take full advantage of the public release of SmartCampus code base.
+    The components of the overall SmartCampus code base are published under the Apache License Version 2.0 (​<a href="http://www.apache.org/licenses/LICENSE-2.0.html">​http://www.apache.org/licenses/LICENSE-2.0.html</a>).
+    The access to the source code is free.</p>
+  </div>
 
-<h2>Important announcement: RESOURCES RELOCATED!</h2>
-The URL of the SmartCampus repositories has changed to: ​https://github.com/smartcampuslab
+  <h2>Open Source approach</h2>
+  <p>The open source release of the project code base is one of the way by which SmartCampus is trying to build an pro-active community around the design and development of services for the students of the University of Trento.</p>
 
-<h2>Important announcement: SVN REPOSITORIES RELOCATED!</h2>
+  <p>The goal of the SmartCampus open source release is to allow anybody within our growing community to actively contribute to the development of new services. More precisely, the goal of this initial release is to enable the development of Android client applications based on the SmartCampus platform. Future releases of the code base will grant the possibility to contribute also to the development of the SmartCampus platform itself.</p>
 
-The URL of the SmartCampus repositories has changed to: ​http://svn.smartcampuslab.it/svn/
+  <h2>Open Source structure</h2>
 
-(previous was ​http://svn.smartcampuslab.it)
-
-If you use Eclipse you can right-click on the project you want to update, choose &#8216;relocate&#8217; and insert the new URL.
-
-You can also relocate from command line using the following command:
-<pre style="font-size: 16px;">
-svn switch --relocate http://svn.smartcampuslab.it/repository/path http://svn.smartcampuslab.it/svn/repository/path
-</pre>
-
-<h2>Important announcement: APP NEW NAMES!</h2>
-
-SmartCampus services have been recently renamed. This change has been applied only to the Graphical User Interface of the services. The names of the Subversion repositories and other development and infrastructural resources have maintained the old names. In order to help our readers retrieving the information they need we summarize in the following table the mapping between the new names of the apps and the legacy names still used for some of the relevant development resources.
-
-<table class="table">
-<tbody><tr><th> <strong>NEW name</strong>  </th><th> <strong>OLD name</strong>  
-</th></tr><tr><td align="center"> ViviTrento </td><td align="center"> DiscoverTrento 
-</td></tr><tr><td align="center"> ViaggiaTrento </td><td align="center"> JourneyPlanner 
-</td></tr><tr><td align="center"> INbox </td><td align="center"> Communicator  
-</td></tr><tr><td align="center"> MyPeople </td><td align="center"> CommunityManager 
-</td></tr><tr><td align="center"> LifeLog </td><td align="center"> ExperienceBuster 
-</td></tr><tr><td align="center"> MyCVs </td><td align="center"> Portfolio 
-</td></tr></tbody></table>
-
-<h2>Documents & Resources</h2>
-
-From this TRAC instance you can browse the source code of the SmartCampus project and track the open tickets related to bugs and enhancements. Besides, a few other documental resources are available:
+  The infrastructure of the Open Source release consists of:
+<ul>
+<li>a set of GIT repositories</li>
+<li>a Nexus artifact repository</li>
+</ul>
+  <p>Currently, the release involves four different kinds of artifacts:</p>
 
 <ul>
-<li><a href="/approach">an overview of SmartCampus Open Source approach</a></li>
-<li><a href="/architecture">a document describing the architecture of the SmartCampus platform and how to develop with it</a></li>
-<li><a href="/android">an introduction to the development of Android apps based on SmartCampus</a></li>
-<li><a href="http://www.smartcampuslab.it/swabout/">about</a></li>
-<li><a href="/credits">credits</a></li>
+<li>VAS (Value Added Service): the services implemented within the SmartCampus project (splitted into components):</li>
+<ul>
+  <li>Android client</li>
+  <li>web application</li>
+  <li>domain libraries</li>
+  <li>libraries for wrapped external services</li>
+</ul>
+<li>platform components in two flavours:
+<ul>
+  <li>as source code</li>
+  <li>as libraries (on a artifact repository)</li>
+</ul>
+<li>common libraries for Android client apps</li>
+<li>wrapping of external services</li>
 </ul>
 
-<h2>Hackaton Documentation</h2>
+  <h2>GIT</h2>
+
+  <p>The code is stored into a set of ​Git (GitHub) repositories.</p>
+  <p>The repositories can be browsed on the web at ​https://github.com/smartcampuslab</p>
+  <p>The contents of the Git repositories is available for download at the following URLs:</p>
+
 <ul>
-  <li><a href="/hackathon">all the documentation about the ICT DAYS 2013 Hackaton contest</a></li>
+<li><h5>platform:</h5></li>
+<ul>
+  <li>the components of the SmartCampus platform that are needed to execute services</li>
+  <li><a href="https://github.com/smartcampuslab/platform">https://github.com/smartcampuslab/platform</a></li>
 </ul>
+<li><h5>clientlibs:</h5></li>
+<ul>
+  <li>the Android common libraries that are needed to execute the services</li>
+  <li><a href="https://github.com/smartcampuslab/clientlibs">https://github.com/smartcampuslab/clientlibs</a></li>
+</ul>
+<li><h5>services:</h5></li>
+<ul>
+  <li>the external services wrapped into the platform to be used by the VAS</li>
+  <li><a href="https://github.com/smartcampuslab/services">https://github.com/smartcampuslab/services</a></li>
+</ul>
+<li><h5>VAS:</h5></li>
+<ul>
+  <li>the services developed by SmartCampus</li>
+  <ul>
+    <li>communicator</li>
+    <li>communitymanager</li>
+    <li>journeyplanner</li>
+    <li>discovertrento</li>
+    <li>experiencebuster</li>
+    <li>portfolio</li>
+    <li>launcher</li>
+  </ul>
+  <li><a href="https://github.com/smartcampuslab/vas">https://github.com/smartcampuslab/vas</a></li>
+</ul>
+</ul>
+  To check out the code from any of these repositories(anonymous, read-only Git access), do this:
+
+  git clone <repo_URL>
+  
+  For instance to checkout a platform project the command to be issued is:
+
+  &#8220;&#8220;git clone https://github.com/smartcampuslab/communicator.client.git&#8220;&#8220;
+
+  To do the clone, you&#8217;ll need <a href="http://git-scm.com/">Git</a>.
+
+  <h2>Nexus</h2>
+
+  <p>Some portions of the code that are used by the platform/services, but that are not part of SmartCampus production, are made available, under their own license, as libraries on a Nexus instance. The downloadable packages, depending on the artifact, may include one or more of these subpackages:</p>
+<ul>
+<li>source code snapshot</li>
+<li>binaries</li>
+<li>API docs</li>
+</ul>
+  
+  <h2>License</h2>
+
+  All the code developed within the SmartCampus project is available under the terms of the ​Apache Software License version 2.0
+
+</div>
 </div>
         </div>
       </div>

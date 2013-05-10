@@ -1,6 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
+        <loc>http://smartcampuslab.github.io/blog/2013/01/24/app-new-names/</loc>
+        <lastmod>2013-05-10T12:00:43+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://smartcampuslab.github.io/blog/2013/05/01/svn-resources-relocated/</loc>
+        <lastmod>2013-05-10T12:00:01+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://smartcampuslab.github.io/blog/2013/05/08/resources-relocated/</loc>
+        <lastmod>2013-05-10T11:55:52+02:00</lastmod>
+    </url>
+    <url>
         <loc>http://smartcampuslab.github.io/credits/</loc>
         <lastmod>2013-05-08T14:54:07+02:00</lastmod>
     </url>
@@ -9,12 +21,8 @@
         <lastmod>2013-05-08T18:42:21+02:00</lastmod>
     </url>
     <url>
-        <loc>http://smartcampuslab.github.io/approach/</loc>
-        <lastmod>2013-05-08T18:40:44+02:00</lastmod>
-    </url>
-    <url>
         <loc>http://smartcampuslab.github.io/hackathon/</loc>
-        <lastmod>2013-05-08T14:54:00+02:00</lastmod>
+        <lastmod>2013-05-10T11:04:18+02:00</lastmod>
     </url>
     <url>
         <loc>http://smartcampuslab.github.io/robots.txt</loc>
@@ -22,11 +30,15 @@
     </url>
     <url>
         <loc>http://smartcampuslab.github.io/</loc>
-        <lastmod>2013-05-08T14:55:21+02:00</lastmod>
+        <lastmod>2013-05-10T12:00:43+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://smartcampuslab.github.io/news/</loc>
+        <lastmod>2013-05-10T12:01:39+02:00</lastmod>
     </url>
     <url>
         <loc>http://smartcampuslab.github.io/blog/archives/</loc>
-        <lastmod>2013-05-03T16:35:21+02:00</lastmod>
+        <lastmod>2013-05-10T12:00:43+02:00</lastmod>
     </url>
     <url>
         <loc>http://smartcampuslab.github.io/android/</loc>

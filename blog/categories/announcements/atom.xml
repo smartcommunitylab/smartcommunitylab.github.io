@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Smart Campus]]></title>
-  <link href="http://smartcampuslab.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: announcements | Smart Campus]]></title>
+  <link href="http://smartcampuslab.github.io/blog/categories/announcements/atom.xml" rel="self"/>
   <link href="http://smartcampuslab.github.io/"/>
   <updated>2013-05-10T12:01:56+02:00</updated>
   <id>http://smartcampuslab.github.io/</id>
@@ -31,13 +31,12 @@
 
 <p>(previous was ​http://svn.smartcampuslab.it)</p>
 
-<p>If you use Eclipse you can right-click on the project you want to update, choose &#8216;relocate&#8217; and insert the new URL.</p>
+<p>If you use Eclipse you can right-click on the project you want to update, choose 'relocate' and insert the new URL.</p>
 
-<p>You can also relocate from command line using the following command:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>svn switch --relocate http://svn.smartcampuslab.it/repository/path http://svn.smartcampuslab.it/svn/repository/path</span></code></pre></td></tr></table></div></figure>
-
+<p>You can also relocate from command line using the following command:
+<code>
+svn switch --relocate http://svn.smartcampuslab.it/repository/path http://svn.smartcampuslab.it/svn/repository/path
+</code></p>
 ]]></content>
   </entry>
   
