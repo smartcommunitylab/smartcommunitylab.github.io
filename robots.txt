@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://smartcampuslab.github.io/sitemap.xml 
+Sitemap: http://smartcommunitylab.github.io/sitemap.xml 
